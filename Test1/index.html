@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Task1</title>
+</head>
+<body>
+    <br>
+    <form name="myform" onfocus="this.clssName='focused'" onsubmit="addItem(event);" >
+        Add New Item:<input type="text" name="newitemadd"/>
+        <input type="submit" name="submit" value="Add" />
+    </form></br>
+    <h2>Drinks</h2>
+    <ul id="drinksul">
+        <li>Milk</li>
+        <li>Tea</li>
+        <li>Cofee</li>
+    </ul>
+    <style>
+         .focused { outline: 1px solid red; }
+         ul{margin-left: 100px;}
+         h2{margin-left: 120px;}
+     </style>
+    <script>
+        function addItem(event){
+            event.preventDefault();
+            let newel=document.forms["myform"]["newitemadd"].value;
+            if(newel==""){alert("enter valid data"); return false;}
+            let ul=document.getElementById("drinksul");
+            let li=document.createElement("li");
+            li.appendChild(document.createTextNode(newel));
+            ul.appendChild(li);
+
+            //var li =`        <li></li>`
+           
+        }
+        // document.getElementById("drinksul").addEventListener("click",function(e){
+        //         if(e.target && e.target.nodeName == "LI"){
+        //             alert(e.target.innerText);
+        //         }
+        //     })
+        
+         let items = document.querySelectorAll('li');
+         for(var i=0;i<items.length;i++){
+         items[i].addEventListener("click",function(e){
+                 if(e.target && e.target.nodeName == "LI"){
+                   alert(e.target.innerText);
+                }
+             })
+         }
+    </script>
+</body>
+</html>
