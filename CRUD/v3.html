@@ -11,7 +11,6 @@
         button{ margin: 10px;}
         #txt{margin-left: 10px;}
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -26,10 +25,10 @@
     </div>
     <script>
 
-        var countries = [{ name: "India", editable: false }, { name: "China", editable: false }, { name: "Japan", editable: false }];
+        const countries = [{ name: "India", editable: false }, { name: "China", editable: false }, { name: "Japan", editable: false }];
         function registerEvents(){
             
-            myele=document.getElementById('list');
+            const myele=document.getElementById('list');
             myele.addEventListener("click",function(e){
             
                 if(e.target.getAttribute('target_btn')=="edit"){
@@ -45,7 +44,6 @@
                     cancelCountry(e.target.getAttribute('data-index'));
                 }
                 else{
-                  //  e.stopPropogation();
                     console.log("something went wrong");
                 }
             });
@@ -55,29 +53,23 @@
 
         }
         function addCountry() {
-            var newCountry = document.getElementById("txt");
+            const newCountry = document.getElementById("txt");
             countries.push({ name: newCountry.value.trim(), editable: false });
             render();
             newCountry.value = '';
         };
         function editCountry(item) {
-            
             countries[item].editable = true;
-           // countries[item].name =
             render();
         };
-        function saveCountry(item) {
-            var newval;
-            countries[item].editable = true;
-            newval=document.getElementById('aa').value;
-            render();
+        function saveCountry(item){
+            const newval=document.getElementById(`aa${item}`).value;
             countries[item].editable = false;
             countries[item].name =newval;
             render();
         };
         function cancelCountry(item) {
             countries[item].editable = false;
-            
             render();
         };
         function deleteCountry(item) {
@@ -85,26 +77,23 @@
             render();
         };
         function render() {
-            var disp = "";
-            disp += '<ul>';
+            let disp = "";
+            disp += `<ul>`;
             for (var i = 0; i < countries.length; i++) {
                 if (countries[i].editable == false) {
-                    disp += '<li>' +countries[i].name + '<button target_btn="edit" data-index='+i+' id="btn-edit" style="margin-left:10px;" >Edit</button><button style="margin-left:10px;"  target_btn="delete" data-index='+ i +' ">Delete</button></li>';  
+                    disp += `<li>${countries[i].name }<button target_btn="edit" data-index="${i}" id="btn-edit" style="margin-left:10px;">Edit</button><button style="margin-left:10px;"  target_btn="delete" data-index="${i}">Delete</button></li>`;  
                 }
                 else {
-                    disp += '<li><input id="aa"  type="text id="edit_val"/><button target_btn="save" data-index='+i+' id="btn-save" style="margin-left:10px;">Save</button><button style="margin-left:10px;"  target_btn="cancel" data-index='+i+'>Cancel</button></li>';  
+                    disp += `<li><input id="aa${i}" value="${countries[i].name}" type="text" id="edit_val"/><button target_btn="save" data-index="${i}" id="btn-save" style="margin-left:10px;">Save</button><button style="margin-left:10px;"  target_btn="cancel" data-index=${i}>Cancel</button></li>`;  
                 }
             }
-            disp += '</ul>';
+            disp += `</ul>`;
             document.getElementById("list").innerHTML = disp;
-            document.getElementById("cnt").innerHTML="Total Countries:"+countries.length;
+            document.getElementById("cnt").innerHTML=`Total Countries:${countries.length}`;
         }
-       
         function main() {
-        
            registerEvents();
             render();
- 
         }
         main();
     </script>
